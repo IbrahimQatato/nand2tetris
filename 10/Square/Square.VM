@@ -1,0 +1,126 @@
+push arg 0
+push arg 1
+push arg 2
+push field 0
+push field 1
+push field 0
+push field 2
+add
+push field 1
+push field 2
+add
+push field 0
+push field 1
+push field 0
+push field 2
+add
+push field 1
+push field 2
+add
+push field 1
+push field 2
+add
+lt
+push field 0
+push field 2
+add
+lt
+and
+push field 2
+add
+push field 2
+gt
+push field 2
+sub
+push field 1
+gt
+push field 0
+push field 1
+push field 2
+add
+sub
+push field 0
+push field 2
+add
+push field 1
+push field 2
+add
+push field 1
+sub
+push field 0
+push field 1
+push field 0
+push field 2
+add
+push field 1
+add
+push field 1
+push field 2
+add
+lt
+push field 0
+push field 1
+push field 0
+push field 2
+add
+push field 1
+add
+push field 1
+add
+push field 0
+push field 1
+push field 2
+add
+sub
+push field 0
+push field 2
+add
+push field 1
+push field 2
+add
+push field 0
+gt
+push field 0
+push field 2
+add
+sub
+push field 1
+push field 0
+push field 2
+add
+push field 1
+push field 2
+add
+push field 0
+sub
+push field 0
+push field 1
+push field 0
+add
+push field 1
+push field 2
+add
+push field 0
+push field 2
+add
+lt
+push field 0
+push field 1
+push field 0
+add
+push field 1
+push field 2
+add
+push field 0
+add
+push field 0
+push field 2
+add
+sub
+push field 1
+push field 0
+push field 2
+add
+push field 1
+push field 2
+add

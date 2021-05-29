@@ -1,0 +1,833 @@
+function Stick.new 0
+push constant 5
+call Memory.alloc 1
+pop pointer 0
+push argument 0
+pop this 2
+push argument 1
+pop this 3
+push argument 0
+push constant 16
+call Math.multiply 2
+pop this 0
+push argument 1
+push constant 16
+call Math.multiply 2
+pop this 1
+push pointer 0
+push this 2
+call Stick.defaultPos 2
+pop temp 0
+push pointer 0
+return
+function Stick.dispose 0
+push argument 0
+pop pointer 0
+push pointer 0
+call Memory.deAlloc 1
+pop temp 0
+push constant 0
+return
+function Stick.moveUp 0
+push argument 0
+pop pointer 0
+push this 3
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos1 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos2 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos3 2
+pop temp 0
+push pointer 0
+call Stick.erase 1
+pop temp 0
+push this 3
+push constant 512
+sub
+pop this 3
+push this 1
+push constant 16
+sub
+pop this 1
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos4 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos1 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Stick.moveDown 0
+push argument 0
+pop pointer 0
+push this 3
+push constant 7680
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos1 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos2 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos3 2
+pop temp 0
+push pointer 0
+call Stick.erase 1
+pop temp 0
+push this 3
+push constant 512
+add
+pop this 3
+push this 1
+push constant 16
+add
+pop this 1
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos4 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos1 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Stick.moveRight 0
+push argument 0
+pop pointer 0
+push this 2
+push constant 31
+lt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos1 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos2 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos3 2
+pop temp 0
+push pointer 0
+call Stick.erase 1
+pop temp 0
+push this 2
+push constant 1
+add
+pop this 2
+push this 0
+push constant 16
+add
+pop this 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos4 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos1 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Stick.moveLeft 0
+push argument 0
+pop pointer 0
+push this 2
+push constant 0
+gt
+if-goto IF_TRUE0
+goto IF_FALSE0
+label IF_TRUE0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos1 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos2 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos3 2
+pop temp 0
+push pointer 0
+call Stick.erase 1
+pop temp 0
+push this 2
+push constant 1
+sub
+pop this 2
+push this 0
+push constant 16
+sub
+pop this 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos4 2
+pop temp 0
+push constant 300
+call Sys.wait 1
+pop temp 0
+push pointer 0
+push this 2
+push this 3
+add
+call Stick.rightPos1 2
+pop temp 0
+label IF_FALSE0
+push constant 0
+return
+function Stick.erase 0
+push argument 0
+pop pointer 0
+push constant 0
+call Screen.setColor 1
+pop temp 0
+push this 0
+push this 1
+push this 0
+push constant 16
+add
+push this 1
+push constant 16
+add
+call Screen.drawRectangle 4
+pop temp 0
+push constant 0
+return
+function Stick.defaultPos 0
+push argument 0
+pop pointer 0
+push constant 16384
+push argument 1
+add
+pop this 4
+push this 4
+push constant 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 32
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 64
+add
+push constant 496
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 96
+add
+push constant 496
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 128
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 160
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 192
+add
+push constant 496
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 224
+add
+push constant 584
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 256
+add
+push constant 1092
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 288
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 320
+add
+push constant 160
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 352
+add
+push constant 160
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 384
+add
+push constant 272
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 416
+add
+push constant 272
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 448
+add
+push constant 272
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 480
+add
+push constant 520
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Stick.rightPos1 0
+push argument 0
+pop pointer 0
+push constant 16384
+push argument 1
+add
+pop this 4
+push this 4
+push constant 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 32
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 64
+add
+push constant 480
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 96
+add
+push constant 480
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 128
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 160
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 192
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 224
+add
+push constant 336
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 256
+add
+push constant 592
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 288
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 320
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 352
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 384
+add
+push constant 160
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 416
+add
+push constant 160
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 448
+add
+push constant 144
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 480
+add
+push constant 256
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Stick.rightPos2 0
+push argument 0
+pop pointer 0
+push constant 16384
+push argument 1
+add
+pop this 4
+push this 4
+push constant 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 32
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 64
+add
+push constant 480
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 96
+add
+push constant 480
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 128
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 160
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 192
+add
+push constant 192
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 224
+add
+push constant 192
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 256
+add
+push constant 448
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 288
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 320
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 352
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 384
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 416
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 448
+add
+push constant 96
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 480
+add
+push constant 128
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Stick.rightPos3 0
+push argument 0
+pop pointer 0
+push constant 16384
+push argument 1
+add
+pop this 4
+push this 4
+push constant 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 32
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 64
+add
+push constant 480
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 96
+add
+push constant 480
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 128
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 160
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 192
+add
+push constant 192
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 224
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 256
+add
+push constant 352
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 288
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 320
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 352
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 384
+add
+push constant 160
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 416
+add
+push constant 160
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 448
+add
+push constant 144
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 480
+add
+push constant 256
+call Memory.poke 2
+pop temp 0
+push constant 0
+return
+function Stick.rightPos4 0
+push argument 0
+pop pointer 0
+push constant 16384
+push argument 1
+add
+pop this 4
+push this 4
+push constant 0
+add
+push constant 0
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 32
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 64
+add
+push constant 480
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 96
+add
+push constant 480
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 128
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 160
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 192
+add
+push constant 224
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 224
+add
+push constant 848
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 256
+add
+push constant 72
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 288
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 320
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 352
+add
+push constant 64
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 384
+add
+push constant 160
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 416
+add
+push constant 272
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 448
+add
+push constant 264
+call Memory.poke 2
+pop temp 0
+push this 4
+push constant 480
+add
+push constant 516
+call Memory.poke 2
+pop temp 0
+push constant 0
+return

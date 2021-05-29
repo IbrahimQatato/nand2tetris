@@ -1,0 +1,11 @@
+push local  4
+push local  1
+push local  2
+neg
+Math.multiply
+push local  2
+neg
+Math.divide
+push local  1
+push local  2
+or

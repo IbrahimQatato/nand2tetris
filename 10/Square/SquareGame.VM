@@ -1,0 +1,29 @@
+push field 1
+eq
+push field 1
+eq
+push field 1
+eq
+push field 1
+eq
+push local  1
+not
+push local  0
+eq
+push local  0
+eq
+push local  0
+eq
+push local  0
+eq
+push local  0
+eq
+push local  0
+eq
+push local  0
+eq
+push local  0
+eq
+push local  0
+eq
+not

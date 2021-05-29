@@ -1,0 +1,288 @@
+class Stick{
+	field int x,y,xB,yB;
+	field int memAddress;
+	/** Constructs a new stickman with a given location */
+   constructor Stick new(int Ax, int Ay) {
+      let xB = Ax;
+      let yB = Ay;
+      let x = Ax*16;
+      let y = Ay*16;
+      do defaultPos(xB);
+      return this;
+   }
+   method void dispose() {
+      do Memory.deAlloc(this);
+      return;
+   }
+   /** moves the sprite one block up*/
+   method void moveUp(){
+   		if (yB > 0){
+      		do Sys.wait(300);
+			do rightPos1(xB+yB);
+			do Sys.wait(300);
+			do rightPos2(xB+yB);
+			do Sys.wait(300);
+			do rightPos3(xB+yB);
+			do erase();
+			let yB = yB-512;
+			let y = y-16;
+			do rightPos4(xB+yB);
+			do Sys.wait(300);
+			do rightPos1(xB+yB);
+		}
+		return;
+   }
+   /** moves the sprite one block down*/
+   method void moveDown(){
+   		if (yB < 7680){
+      		do Sys.wait(300);
+			do rightPos1(xB+yB);
+			do Sys.wait(300);
+			do rightPos2(xB+yB);
+			do Sys.wait(300);
+			do rightPos3(xB+yB);
+			do erase();
+			let yB = yB+512;
+			let y = y+16;
+			do rightPos4(xB+yB);
+			do Sys.wait(300);
+			do rightPos1(xB+yB);
+		}
+		return;
+   }
+   /** moves the sprite one block to the right*/
+   method void moveRight(){
+   		if (xB < 31){
+      		do Sys.wait(300);
+			do rightPos1(xB+yB);
+			do Sys.wait(300);
+			do rightPos2(xB+yB);
+			do Sys.wait(300);
+			do rightPos3(xB+yB);
+			do erase();
+			let xB = xB+1;
+			let x = x+16;
+			do rightPos4(xB+yB);
+			do Sys.wait(300);
+			do rightPos1(xB+yB);
+		}
+		return;
+	}
+
+	/** moves the sprite one block to the left*/
+   method void moveLeft(){
+   		if (xB > 0){
+      	do Sys.wait(300);
+		do rightPos1(xB+yB);
+		do Sys.wait(300);
+		do rightPos2(xB+yB);
+		do Sys.wait(300);
+		do rightPos3(xB+yB);
+		do erase();
+		let xB = xB-1;
+		let x = x-16;
+		do rightPos4(xB+yB);
+		do Sys.wait(300);
+		do rightPos1(xB+yB);
+		}
+		return;
+	}
+
+	/**erases the sprite in it's current position*/
+	method void erase(){
+		do Screen.setColor(false);
+		do Screen.drawRectangle(x, y, x+16, y+16);
+		return;
+	}
+
+   /**Draws the stickman in the default position*/
+   method void defaultPos(int location) {
+		let memAddress = 16384+location;
+		do Memory.poke(memAddress+0, 0);
+		do Memory.poke(memAddress+32, 224);
+		do Memory.poke(memAddress+64, 496);
+		do Memory.poke(memAddress+96, 496);
+		do Memory.poke(memAddress+128, 224);
+		do Memory.poke(memAddress+160, 64);
+		do Memory.poke(memAddress+192, 496);
+		do Memory.poke(memAddress+224, 584);
+		do Memory.poke(memAddress+256, 1092);
+		do Memory.poke(memAddress+288, 64);
+		do Memory.poke(memAddress+320, 160);
+		do Memory.poke(memAddress+352, 160);
+		do Memory.poke(memAddress+384, 272);
+		do Memory.poke(memAddress+416, 272);
+		do Memory.poke(memAddress+448, 272);
+		do Memory.poke(memAddress+480, 520);
+		return;
+	}
+	/** Running positions to the right*/
+	method void rightPos1(int location) {
+		let memAddress = 16384+location;
+		do Memory.poke(memAddress+0, 0);
+		do Memory.poke(memAddress+32, 224);
+		do Memory.poke(memAddress+64, 480);
+		do Memory.poke(memAddress+96, 480);
+		do Memory.poke(memAddress+128, 224);
+		do Memory.poke(memAddress+160, 64);
+		do Memory.poke(memAddress+192, 224);
+		do Memory.poke(memAddress+224, 336);
+		do Memory.poke(memAddress+256, 592);
+		do Memory.poke(memAddress+288, 64);
+		do Memory.poke(memAddress+320, 64);
+		do Memory.poke(memAddress+352, 64);
+		do Memory.poke(memAddress+384, 160);
+		do Memory.poke(memAddress+416, 160);
+		do Memory.poke(memAddress+448, 144);
+		do Memory.poke(memAddress+480, 256);
+		return;
+	}
+	method void rightPos2(int location) {
+		let memAddress = 16384+location;
+		do Memory.poke(memAddress+0, 0);
+		do Memory.poke(memAddress+32, 224);
+		do Memory.poke(memAddress+64, 480);
+		do Memory.poke(memAddress+96, 480);
+		do Memory.poke(memAddress+128, 224);
+		do Memory.poke(memAddress+160, 64);
+		do Memory.poke(memAddress+192, 192);
+		do Memory.poke(memAddress+224, 192);
+		do Memory.poke(memAddress+256, 448);
+		do Memory.poke(memAddress+288, 64);
+		do Memory.poke(memAddress+320, 64);
+		do Memory.poke(memAddress+352, 64);
+		do Memory.poke(memAddress+384, 64);
+		do Memory.poke(memAddress+416, 64);
+		do Memory.poke(memAddress+448, 96);
+		do Memory.poke(memAddress+480, 128);
+		return;
+	}
+	method void rightPos3(int location) {
+		let memAddress = 16384+location;
+		do Memory.poke(memAddress+0, 0);
+		do Memory.poke(memAddress+32, 224);
+		do Memory.poke(memAddress+64, 480);
+		do Memory.poke(memAddress+96, 480);
+		do Memory.poke(memAddress+128, 224);
+		do Memory.poke(memAddress+160, 64);
+		do Memory.poke(memAddress+192, 192);
+		do Memory.poke(memAddress+224, 224);
+		do Memory.poke(memAddress+256, 352);
+		do Memory.poke(memAddress+288, 64);
+		do Memory.poke(memAddress+320, 64);
+		do Memory.poke(memAddress+352, 64);
+		do Memory.poke(memAddress+384, 160);
+		do Memory.poke(memAddress+416, 160);
+		do Memory.poke(memAddress+448, 144);
+		do Memory.poke(memAddress+480, 256);
+		return;
+	}
+	method void rightPos4(int location) {
+		let memAddress = 16384+location;
+		do Memory.poke(memAddress+0, 0);
+		do Memory.poke(memAddress+32, 224);
+		do Memory.poke(memAddress+64, 480);
+		do Memory.poke(memAddress+96, 480);
+		do Memory.poke(memAddress+128, 224);
+		do Memory.poke(memAddress+160, 64);
+		do Memory.poke(memAddress+192, 224);
+		do Memory.poke(memAddress+224, 848);
+		do Memory.poke(memAddress+256, 72);
+		do Memory.poke(memAddress+288, 64);
+		do Memory.poke(memAddress+320, 64);
+		do Memory.poke(memAddress+352, 64);
+		do Memory.poke(memAddress+384, 160);
+		do Memory.poke(memAddress+416, 272);
+		do Memory.poke(memAddress+448, 264);
+		do Memory.poke(memAddress+480, 516);
+		return;
+	}// end of running right
+}
+
+
+
+/**
+//standing
+
+//running to the right
+function void draw(int location) {
+	let memAddress = 16384+location;
+	do Memory.poke(memAddress+0, 0);
+	do Memory.poke(memAddress+32, 224);
+	do Memory.poke(memAddress+64, 480);
+	do Memory.poke(memAddress+96, 480);
+	do Memory.poke(memAddress+128, 224);
+	do Memory.poke(memAddress+160, 64);
+	do Memory.poke(memAddress+192, 224);
+	do Memory.poke(memAddress+224, 336);
+	do Memory.poke(memAddress+256, 592);
+	do Memory.poke(memAddress+288, 64);
+	do Memory.poke(memAddress+320, 64);
+	do Memory.poke(memAddress+352, 64);
+	do Memory.poke(memAddress+384, 160);
+	do Memory.poke(memAddress+416, 160);
+	do Memory.poke(memAddress+448, 144);
+	do Memory.poke(memAddress+480, 256);
+	return;
+}
+method void rightPos2(int location) {
+	let memAddress = 16384+location;
+	do Memory.poke(memAddress+0, 0);
+	do Memory.poke(memAddress+32, 224);
+	do Memory.poke(memAddress+64, 480);
+	do Memory.poke(memAddress+96, 480);
+	do Memory.poke(memAddress+128, 224);
+	do Memory.poke(memAddress+160, 64);
+	do Memory.poke(memAddress+192, 192);
+	do Memory.poke(memAddress+224, 192);
+	do Memory.poke(memAddress+256, 448);
+	do Memory.poke(memAddress+288, 64);
+	do Memory.poke(memAddress+320, 64);
+	do Memory.poke(memAddress+352, 64);
+	do Memory.poke(memAddress+384, 64);
+	do Memory.poke(memAddress+416, 64);
+	do Memory.poke(memAddress+448, 96);
+	do Memory.poke(memAddress+480, 128);
+	return;
+}
+method void rightPos3(int location) {
+	let memAddress = 16384+location;
+	do Memory.poke(memAddress+0, 0);
+	do Memory.poke(memAddress+32, 224);
+	do Memory.poke(memAddress+64, 480);
+	do Memory.poke(memAddress+96, 480);
+	do Memory.poke(memAddress+128, 224);
+	do Memory.poke(memAddress+160, 64);
+	do Memory.poke(memAddress+192, 192);
+	do Memory.poke(memAddress+224, 224);
+	do Memory.poke(memAddress+256, 352);
+	do Memory.poke(memAddress+288, 64);
+	do Memory.poke(memAddress+320, 64);
+	do Memory.poke(memAddress+352, 64);
+	do Memory.poke(memAddress+384, 160);
+	do Memory.poke(memAddress+416, 160);
+	do Memory.poke(memAddress+448, 144);
+	do Memory.poke(memAddress+480, 256);
+	return;
+}
+function void rightPos4(int location) {
+	let memAddress = 16384+location;
+	do Memory.poke(memAddress+0, 0);
+	do Memory.poke(memAddress+32, 224);
+	do Memory.poke(memAddress+64, 480);
+	do Memory.poke(memAddress+96, 480);
+	do Memory.poke(memAddress+128, 224);
+	do Memory.poke(memAddress+160, 64);
+	do Memory.poke(memAddress+192, 224);
+	do Memory.poke(memAddress+224, 848);
+	do Memory.poke(memAddress+256, 72);
+	do Memory.poke(memAddress+288, 64);
+	do Memory.poke(memAddress+320, 64);
+	do Memory.poke(memAddress+352, 64);
+	do Memory.poke(memAddress+384, 160);
+	do Memory.poke(memAddress+416, 272);
+	do Memory.poke(memAddress+448, 264);
+	do Memory.poke(memAddress+480, 516);
+	return;
+}// end of running right
+*/
