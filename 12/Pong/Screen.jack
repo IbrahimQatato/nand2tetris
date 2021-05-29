@@ -1,0 +1,228 @@
+// This file is part of www.nand2tetris.org
+// and the book "The Elements of Computing Systems"
+// by Nisan and Schocken, MIT Press.
+// File name: projects/12/Screen.jack
+
+/**
+ * A library of functions for displaying graphics on the screen.
+ * The Hack physical screen consists of 512 rows (indexed 0..511, top to bottom)
+ * of 256 pixels each (indexed 0..255, left to right). The top left pixel on 
+ * the screen is indexed (0,0).
+ */
+class Screen {
+    static Array pOftwo;
+    static boolean color;
+    static int SCREEN;
+
+    /** Initializes the Screen. */
+    function void init() {
+        var int bit, count;
+	let color=true;
+	let SCREEN = 16384;
+	let pOftwo=Array.new(16);
+	let bit=1;
+	while(count < 16){
+		let pOftwo[count]=bit;
+		let bit=bit+bit;
+		let count=count+1;
+	}
+	return;
+    }
+
+    /** Erases the entire screen. */
+    function void clearScreen() {
+        return;
+    }
+
+    /** Sets the current color, to be used for all subsequent drawXXX commands.
+     *  Black is represented by true, white by false. */
+    function void setColor(boolean b) {
+    	let color = b;
+        return;
+    }
+
+    /** Draws the (x,y) pixel, using the current color. */
+    function void drawPixel(int x, int y) {
+        var int index, value, address;
+        let address = (y*32)+(x/16)+16384;
+        let value = Memory.peek(address);
+        if (color){
+            let index = x-((x/16)*16);
+            let value = value | pOftwo[index];
+        }else{
+            let index = (x-((x/16)*16));
+            let value = value & ~pOftwo[index];
+        }
+        do Memory.poke(address, value);
+        return;
+    }
+
+    /** Draws a line from pixel (x1,y1) to pixel (x2,y2), using the current color. */
+    function void drawLine(int x1, int y1, int x2, int y2) {
+    	var int a, b, diff, dx, dy, ida , idb, temp;
+    	let a = 0;
+    	let b = 0;
+    	let diff = 0;
+    	let dx = x2-x1;
+    	let dy = y2-y1;
+    	
+    	if(dx=0){
+    		do Screen.drawVertical(x1,y1,y2);
+    		return;
+    	}
+    	if(dy=0){
+    		do Screen.drawHorizontal(y1,x1,x2);
+    		return;
+    	}
+    	
+    	if(dx<0){
+    		let ida = -1;
+    	}else{
+    		let ida = 1;
+    	}
+    	if(dy<0){
+    		let idb = -1;
+    	}else{
+    		let idb = 1;
+    	}
+
+    	while(~(Math.abs(a)>Math.abs(dx))&~(Math.abs(b)>Math.abs(dy))){
+    		do Screen.drawPixel(x1+a, y1+b);
+    		if(diff<0){
+    			let a=a+ida; 
+    			let diff = diff+Math.abs(dy);
+    		}
+    		else {
+    			let b=b+idb;
+    			let diff = diff-Math.abs(dx);
+    		}
+    	}
+    	return;
+    }
+
+    /** Draws a filled rectangle whose top left corner is (x1, y1)
+     * and bottom right corner is (x2,y2), using the current color. */
+    function void drawRectangle(int x1, int y1, int x2, int y2) {
+    	var int dy,b, dx;
+    	var int fBit, lBit, currP, increment, maskC, address, colour;
+    	let b = 0;
+    	let dy = y2-y1;
+    	let dx = x2-x1;
+    	let fBit = x1-((x1/16)*16);
+    	let colour = -1;
+    	let lBit = x2-((x2/16)*16);
+    	if (~color){
+    		let colour = 0;
+    	}
+    	while(~(dy<0)){	
+    	
+    		if (fBit>0){
+    			let increment = 16-fBit;
+	    		if(~(dx<increment)){
+    				do Screen.drawHorizontal(y, x1, x1+increment);
+    			}else{
+    				do Screen.drawHorizontal(y, x1, x2);
+ 		   			return;
+    			}
+    		}	
+  		  	
+    		
+    		let currP = x1+increment;
+    		let maskC = dx-lBit-fBit;
+    		let maskC = maskC+currP;
+    		let address = (y*32)+(currP/16);
+    		while(currP<maskC){
+	    		let SCREEN[address] = colour;
+    			let address = address+1;
+    			let currP = currP+16;
+    		}
+    		if(lBit>0){
+    			do Screen.drawHorizontal(y, currP, x2);
+    		}
+    			let b = b+1;
+    			let dy = dy-1;
+    	}
+
+    	return;
+    }
+
+    /** Draws a filled circle of radius r<=181 around (x,y), using the current color. */
+    function void drawCircle(int x, int y, int r) {
+    	var int dy, adfactor;
+    	let dy = -r;
+    	while(~(dy>r)){
+    		let adfactor = Math.sqrt((r*r)-(dy*dy));
+    		do Screen.drawHorizontal(y+dy, x-adfactor, x+adfactor);
+    		//do Screen.drawPixel(x-adfactor, y+dy);
+    		//do Screen.drawPixel(x+adfactor, y+dy);
+    		let dy = dy+1;
+    	}
+    	return;
+    }
+
+    function void drawVertical(int x1, int y1, int y2){
+    	var int temp, dy, b;
+    	let b = 0;
+    		if(y2<y1){
+    			let temp = y1;
+    			let y1 = y2;
+    			let y2 = temp;
+    		}
+    		let dy = y2-y1;
+    		while(~(b>dy)){
+    			do Screen.drawPixel(x1, y1+b);
+    			let b = b+1;
+    		}
+    	  	
+    	return;
+    }
+    function void drawHorizontal(int y1, int x1, int x2){
+    	var int temp, dx, a;
+    	let a = 0;
+    		if(x2<x1){
+    			let temp = x1;
+    			let x1 = x2;
+    			let x2 = temp;
+    		}
+    		let dx = x2-x1;
+    		while(~(a>dx)){
+    			do Screen.drawPixel(x1+a, y1);
+    			let a = a+1;
+    		}
+    	  	
+    	return;
+    }
+
+    function void drawHorizontalOptimized(int x1, int x2, int y, int dx){
+    	var int fBit, lBit, currP, increment, maskC, address, colour;
+    	let colour = -1;
+    	let fBit = x1-((x1/16)*16);
+
+    	if (fBit>0){
+    		let increment = 16-fBit;
+    		if(~(dx<increment)){
+    			do Screen.drawHorizontal(y, x1, x1+increment);
+    		}else{
+    			do Screen.drawHorizontal(y, x1, x2);
+    			return;
+    		}
+    	}
+    	if (~color){
+    		let colour = 0;
+    	}
+    	let lBit = x2-((x2/16)*16);
+    	let currP = x1+increment;
+    	let maskC = dx-lBit-fBit;
+    	let maskC = maskC+currP;
+    	let address = (y*32)+(currP/16);
+    	while(currP<maskC){
+    		let SCREEN[address] = colour;
+    		let address = address+1;
+    		let currP = currP+16;
+    	}
+    	if(lBit>0){
+    		do Screen.drawHorizontal(y, currP, x2);
+    	}
+    	return;
+    }
+}
